@@ -15,7 +15,7 @@ driver.get("https://www.selenium.dev/selenium/web/web-form.html")
 title = driver.title
 assert title == "Web form"
 
-driver.implicitly_wait(0.5)
+driver.implicitly_wait(5)
 
 text_box = driver.find_element(by=By.NAME, value="my-text")
 submit_button = driver.find_element(by=By.CSS_SELECTOR, value="button")
