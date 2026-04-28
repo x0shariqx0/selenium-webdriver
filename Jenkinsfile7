@@ -1,32 +1,29 @@
 pipeline {
     agent any
-    environment {
-        IMAGE_NAME = "selenium-test"
-    }
+
     stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/YOUR_USERNAME/selenium-webdriver.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Build the Docker image
-                    sh '''docker build -t $IMAGE_NAME .
-                          docker images'''                    
-                }
+                sh 'docker build -t selenium-test .'
             }
         }
-    stage('Run Selenium Tests') {
+
+        stage('Run Selenium Test') {
             steps {
-                script {
-                    // Run the Docker container and execute the tests
-                    // sh 'docker run --rm ${env.IMAGE_NAME}'
-                     sh 'docker run $IMAGE_NAME'
-                }
+                sh 'docker run --rm selenium-test'
             }
         }
     }
-     post {
-            always {
-                // Cleanup: remove any unused images, volumes, etc.
-                sh 'docker system prune -af'
-            }
+
+    post {
+        always {
+            sh 'docker system prune -af'
         }
+    }
 }
