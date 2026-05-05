@@ -12,12 +12,22 @@ options.add_argument('--remote-debugging-port=9222')
 service = Service('/usr/bin/chromedriver')
 driver = webdriver.Chrome(service=service, options=options)
 
-driver.get("https://www.selenium.dev/selenium/web/web-form.html")
-
-title = driver.title
-assert title == "Web form"
+# 👉 load local file inside container
+driver.get("file:///app/index.html")
 
 driver.implicitly_wait(5)
 
-text_box = driver.find_element(by=By.NAME, value="my-text")
-submit_button = driver.find_element(by=By.CSS_SELECTOR, value="button")
+text_box = driver.find_element(By.ID, "myInput")
+submit_button = driver.find_element(By.TAG_NAME, "button")
+
+text_box.send_keys("Hello")
+submit_button.click()
+
+message = driver.find_element(By.ID, "message")
+value = message.text
+
+print(value)
+
+assert value == "Received!"
+
+driver.quit()
