@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Clone Repo') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/selenium-webdriver.git'
+                git 'https://github.com/x0shariqx0/selenium-webdriver.git'
             }
         }
 
