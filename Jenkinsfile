@@ -2,9 +2,16 @@ pipeline {
     agent any
 
     stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/x0shariqx0/selenium-webdriver.git'
+                git branch: 'master', url: 'https://github.com/x0shariqx0/selenium-webdriver.git'
             }
         }
 
